@@ -1,13 +1,14 @@
 package com.example.sportzone.Services;
 
-import com.example.sportzone.Repository.UtilisateurRepository;
+import com.example.sportzone.dto.RegistrationDTO;
+import com.example.sportzone.entity.Client;
+import com.example.sportzone.entity.Proprietairesalle;
 import com.example.sportzone.entity.Utilisateur;
+import com.example.sportzone.Repository.UtilisateurRepository; // Make sure this repository exists
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UtilisateurService {
@@ -15,30 +16,35 @@ public class UtilisateurService {
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 
-    @Transactional
-    public Utilisateur createUtilisateur(Utilisateur utilisateur) {
-        return utilisateurRepository.save(utilisateur);
+    public void registerUser(RegistrationDTO registrationDTO) {
+        Utilisateur utilisateur;
+
+        if ("CLIENT".equalsIgnoreCase(registrationDTO.getUserType())) {
+            utilisateur = new Client();
+        } else if ("PROPRIETAIRESALLE".equalsIgnoreCase(registrationDTO.getUserType())) {
+            utilisateur = new Proprietairesalle();
+        } else {
+            throw new IllegalArgumentException("Invalid user type");
+        }
+
+        utilisateur.setNom(registrationDTO.getNom());
+        utilisateur.setPrenom(registrationDTO.getPrenom());
+        utilisateur.setEmail(registrationDTO.getEmail());
+        utilisateur.setPassword(registrationDTO.getPassword());
+        utilisateur.setAdresse(registrationDTO.getAdresse());
+
+        utilisateurRepository.save(utilisateur);
     }
 
-    public List<Utilisateur> getAllUtilisateurs() {
+    public List<Utilisateur> getAllUsers() {
         return utilisateurRepository.findAll();
     }
 
-    public Optional<Utilisateur> getUtilisateurById(int id) {
-        return utilisateurRepository.findById(id);
+    public Utilisateur getUserById(Long id) {
+        return utilisateurRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
-    @Transactional
-    public Utilisateur updateUtilisateur(Utilisateur utilisateur) {
-        return utilisateurRepository.save(utilisateur);
-    }
-
-    @Transactional
-    public void deleteUtilisateur(int id) {
-        if (utilisateurRepository.existsById(id)) {
-            utilisateurRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Utilisateur not found with id: " + id);
-        }
+    public void deleteUser(Long id) {
+        utilisateurRepository.deleteById(id);
     }
 }
