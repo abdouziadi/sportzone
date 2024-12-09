@@ -24,7 +24,7 @@ public class ProprietairesalleService {
         return proprietairesalleRepository.findAll();
     }
 
-    public Optional<Proprietairesalle> getProprietairesalleById(int id) {
+    public Optional<Proprietairesalle> getProprietairesalleById(long id) {
         return proprietairesalleRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class ProprietairesalleService {
     }
 
     @Transactional
-    public void deleteProprietairesalle(int id) {
+    public void deleteProprietairesalle(long id) {
         if (proprietairesalleRepository.existsById(id)) {
             proprietairesalleRepository.deleteById(id);
         } else {

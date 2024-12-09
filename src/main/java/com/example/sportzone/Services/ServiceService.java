@@ -24,7 +24,7 @@ public class ServiceService {
         return serviceRepository.findAll();
     }
 
-    public Optional<ServiceEntity> getServiceById(int id) {
+    public Optional<ServiceEntity> getServiceById(Long id) {
         return serviceRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class ServiceService {
     }
 
     @Transactional
-    public void deleteService(int id) {
+    public void deleteService(Long id) {
         if (serviceRepository.existsById(id)) {
             serviceRepository.deleteById(id);
         } else {

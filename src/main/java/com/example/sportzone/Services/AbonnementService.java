@@ -15,7 +15,7 @@ public class AbonnementService {
     @Autowired
     private AbonnementRepository abonnementRepository;
 
-    @Transactional
+
     public Abonnement createAbonnement(Abonnement abonnement) {
         return abonnementRepository.save(abonnement);
     }
@@ -24,17 +24,16 @@ public class AbonnementService {
         return abonnementRepository.findAll();
     }
 
-    public Optional<Abonnement> getAbonnementById(int id) {
+    public Optional<Abonnement> getAbonnementById(long id) {
         return abonnementRepository.findById(id);
     }
 
-    @Transactional
     public Abonnement updateAbonnement(Abonnement abonnement) {
         return abonnementRepository.save(abonnement);
     }
 
     @Transactional
-    public void deleteAbonnement(int id) {
+    public void deleteAbonnement(long id) {
         if (abonnementRepository.existsById(id)) {
             abonnementRepository.deleteById(id);
         } else {

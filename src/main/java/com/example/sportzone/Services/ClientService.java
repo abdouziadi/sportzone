@@ -24,7 +24,7 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public Optional<Client> getClientById(int id) {
+    public Optional<Client> getClientById(long id) {
         return clientRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class ClientService {
     }
 
     @Transactional
-    public void deleteClient(int id) {
+    public void deleteClient(long id) {
         if (clientRepository.existsById(id)) {
             clientRepository.deleteById(id);
         } else {

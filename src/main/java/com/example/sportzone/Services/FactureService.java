@@ -24,7 +24,7 @@ public class FactureService {
         return factureRepository.findAll();
     }
 
-    public Optional<Facture> getFactureById(int id) {
+    public Optional<Facture> getFactureById(Long id) {
         return factureRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class FactureService {
     }
 
     @Transactional
-    public void deleteFacture(int id) {
+    public void deleteFacture(Long id) {
         if (factureRepository.existsById(id)) {
             factureRepository.deleteById(id);
         } else {

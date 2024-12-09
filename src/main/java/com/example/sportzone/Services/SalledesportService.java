@@ -24,7 +24,7 @@ public class SalledesportService {
         return salledesportRepository.findAll();
     }
 
-    public Optional<Salledesport> getSalledesportById(int id) {
+    public Optional<Salledesport> getSalledesportById(long id) {
         return salledesportRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class SalledesportService {
     }
 
     @Transactional
-    public void deleteSalledesport(int id) {
+    public void deleteSalledesport(long id) {
         if (salledesportRepository.existsById(id)) {
             salledesportRepository.deleteById(id);
         } else {

@@ -24,7 +24,7 @@ public class AdminService {
         return adminRepository.findAll();
     }
 
-    public Optional<Admin> getAdminById(int id) {
+    public Optional<Admin> getAdminById(long id) {
         return adminRepository.findById(id);
     }
 
@@ -34,7 +34,7 @@ public class AdminService {
     }
 
     @Transactional
-    public void deleteAdmin(int id) {
+    public void deleteAdmin(long id) {
         if (adminRepository.existsById(id)) {
             adminRepository.deleteById(id);
         } else {
